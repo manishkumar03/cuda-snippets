@@ -1,4 +1,4 @@
-// ************************************************************************
+// ************************************************************************************************
 // CudaConvolutionForward01.cu
 // Author: Manish Kumar
 // This file implements a simple forward convolution operation using CUDA.
@@ -7,7 +7,7 @@
 // The aim of this project is to learn CUDA programming and understand inner workings of neural networks.
 // In keep with the project's goals, the code is kept simple and does not include optimization features 
 // like tiling, shared memory, or memory coalescing etc.
-// ************************************************************************ 
+// ************************************************************************************************ 
 #include <iostream>
 #include <vector>
 #include <chrono>
