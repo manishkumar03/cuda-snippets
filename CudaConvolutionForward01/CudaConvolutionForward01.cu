@@ -49,7 +49,10 @@ __global__ void convForwardKernel(const float* input, const float* kernels, cons
     output[o_idx] = sum + biases[c_out];
 }
 
-// CPU Convolution Reference
+// CPU-based Convolution for Reference. 
+// This function was copied from another source and modified to suit this project's requirements.
+// Writing it from scratch would not have been a prudent use of time as the emphasis of this project is on learning CUDA
+// programming and the only purpose of this function is to validate the GPU implementation.
 void conv_forward_cpu(const std::vector<float>& input, const std::vector<float>& kernels, const std::vector<float>& biases,
                       std::vector<float>& output) {
     for (int n = 0; n < N; ++n)
