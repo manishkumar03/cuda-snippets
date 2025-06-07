@@ -16,6 +16,8 @@ __global__ void convForwardKernel(const float* input, const float* kernels, cons
     int o_idx = (blockIdx.x * blockDim.x) + threadIdx.x;
     if (o_idx >= N * C_out * H_out * W_out) return;
 
+    // Flatten the 1D thread/output index to 4D (n, c_out, h_out, w_out)
+    // n: batch index, c_out: output channel index, h_out: output height index, w_out: output width index
     int n = o_idx / (C_out * H_out * W_out);
     int remainder1 = o_idx % (C_out * H_out * W_out);
     int c_out = remainder1 / (H_out * W_out);
@@ -85,10 +87,13 @@ int main() {
 
     std::vector<float> input(input_size), kernels(kernel_size), biases(bias_size), cpu_output(output_size), gpu_output(output_size);
 
-    // Deterministic input values
+    // Deterministic input values for simplicity. In practice, these would be initialized with real image data.
     for (size_t i = 0; i < input_size; ++i)
         input[i] = 0.01f * static_cast<float>(i % 10);
 
+    // Initialize kernels and biases with deterministic values.
+    // This is just an example; in practice, we would use He or Xavier initialization
+    // for kernels and biases.
     for (size_t i = 0; i < kernel_size; ++i)
         kernels[i] = 0.001f * static_cast<float>(i % 5);
 
