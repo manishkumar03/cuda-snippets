@@ -13,15 +13,15 @@ __global__ void convForwardKernel(const float* input, const float* kernels, cons
                                   int N, int C_in, int H_in, int W_in,
                                   int C_out, int KH, int KW,
                                   int H_out, int W_out, int padding, int stride) {
-    int o_idx = blockIdx.x * blockDim.x + threadIdx.x;
+    int o_idx = (blockIdx.x * blockDim.x) + threadIdx.x;
     if (o_idx >= N * C_out * H_out * W_out) return;
 
     int n = o_idx / (C_out * H_out * W_out);
-    int temp = o_idx % (C_out * H_out * W_out);
-    int c_out = temp / (H_out * W_out);
-    temp %= (H_out * W_out);
-    int h_out = temp / W_out;
-    int w_out = temp % W_out;
+    int remainder1 = o_idx % (C_out * H_out * W_out);
+    int c_out = remainder1 / (H_out * W_out);
+    int remainder2 = remainder1 % (H_out * W_out);
+    int h_out = remainder2 / W_out;
+    int w_out = remainder2 % W_out;
 
     float sum = 0.0f;
     for (int c_in = 0; c_in < C_in; ++c_in) {
