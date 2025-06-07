@@ -25,15 +25,24 @@ So:
 * We launch 12544 threads, each producing one output element
 * Each thread has a global linear index in [0, 12543]
 
-The formula to convert a flattened 1D index to a unflattened 4D index:
+The formula to convert a flattened 1D index to a unflattened 4D index is:
 
 ```cpp
     int n = o_idx / (C_out * H_out * W_out);
     int remainder1 = o_idx % (C_out * H_out * W_out);
     int c_out = remainder1 / (H_out * W_out);
-    remainder2 = remainder1 % (H_out * W_out);
+    int remainder2 = remainder1 % (H_out * W_out);
     int h_out = remainder2 / W_out;
     int w_out = remainder2 % W_out;
+```
+
+When flattening `(n, c_out, h_out, w_out)` to a 1D index o_idx, the formula is:
+
+```cpp
+	o_idx = n * (C_out * H_out * W_out)
+	      + c_out * (H_out * W_out)
+	      + h_out * W_out
+	      + w_out
 ```
 
 Let's take the thread with `o_idx=11000` and unflatten it to `(n, c_out, h_out, w_out)`.
