@@ -18,6 +18,7 @@ __global__ void convForwardKernel(const float* input, const float* kernels, cons
 
     // Flatten the 1D thread/output index to 4D (n, c_out, h_out, w_out)
     // n: batch index, c_out: output channel index, h_out: output height index, w_out: output width index
+    // C_out: number of output channels, H_out: output height, W_out: output width
     int n = o_idx / (C_out * H_out * W_out);
     int remainder1 = o_idx % (C_out * H_out * W_out);
     int c_out = remainder1 / (H_out * W_out);
@@ -52,7 +53,7 @@ __global__ void convForwardKernel(const float* input, const float* kernels, cons
 // CPU-based Convolution for Reference. 
 // This function was copied from another source and modified to suit this project's requirements.
 // Writing it from scratch would not have been a prudent use of time as the emphasis of this project is on learning CUDA
-// programming and the only purpose of this function is to validate the GPU implementation.
+// programming and the only purpose of this function is to validate the GPU implementation. 
 void conv_forward_cpu(const std::vector<float>& input, const std::vector<float>& kernels, const std::vector<float>& biases,
                       std::vector<float>& output) {
     for (int n = 0; n < N; ++n)
