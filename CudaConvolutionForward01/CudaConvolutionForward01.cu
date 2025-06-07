@@ -16,9 +16,7 @@ __global__ void convForwardKernel(const float* input, const float* kernels, cons
     int o_idx = (blockIdx.x * blockDim.x) + threadIdx.x;
     if (o_idx >= N * C_out * H_out * W_out) return;
 
-    // Flatten the 1D thread/output index to 4D (n, c_out, h_out, w_out)
-    // n: batch index, c_out: output channel index, h_out: output height index, w_out: output width index
-    // C_out: number of output channels, H_out: output height, W_out: output width
+    // Unflatten the 1D thread/output index to 4D (n, c_out, h_out, w_out)
     int n = o_idx / (C_out * H_out * W_out);
     int remainder1 = o_idx % (C_out * H_out * W_out);
     int c_out = remainder1 / (H_out * W_out);
@@ -34,6 +32,7 @@ __global__ void convForwardKernel(const float* input, const float* kernels, cons
                 int w_in_eff = w_out * stride + kw - padding;
 
                 if (h_in_eff >= 0 && h_in_eff < H_in && w_in_eff >= 0 && w_in_eff < W_in) {
+                    // Flatten the 4D indices to 1D
                     int input_idx = n * (C_in * H_in * W_in) +
                                     c_in * (H_in * W_in) +
                                     h_in_eff * W_in +
