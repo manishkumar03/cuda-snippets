@@ -29,21 +29,21 @@ So:
 When flattening `(n, c_out, h_out, w_out)` to a 1D index `o_idx`, the formula is:
 
 ```cpp
-	o_idx = n * (C_out * H_out * W_out)
-	      + c_out * (H_out * W_out)
-	      + h_out * W_out
-	      + w_out
+o_idx = n * (C_out * H_out * W_out)
+      + c_out * (H_out * W_out)
+      + h_out * W_out
+      + w_out
 ```
 
 The formula to convert a flattened 1D index to a unflattened 4D index is:
 
 ```cpp
-    int n = o_idx / (C_out * H_out * W_out);
-    int remainder1 = o_idx % (C_out * H_out * W_out);
-    int c_out = remainder1 / (H_out * W_out);
-    int remainder2 = remainder1 % (H_out * W_out);
-    int h_out = remainder2 / W_out;
-    int w_out = remainder2 % W_out;
+int n = o_idx / (C_out * H_out * W_out);
+int remainder1 = o_idx % (C_out * H_out * W_out);
+int c_out = remainder1 / (H_out * W_out);
+int remainder2 = remainder1 % (H_out * W_out);
+int h_out = remainder2 / W_out;
+int w_out = remainder2 % W_out;
 ```
 
 Let's take the thread with `o_idx=11000` and unflatten it to `(n, c_out, h_out, w_out)`.
