@@ -4,6 +4,7 @@
 // This file implements a simple forward convolution operation using CUDA.
 // It includes a CUDA kernel for the convolution operation and a CPU-based reference implementation
 // for validation. The code is designed to be simple, with fixed synthetic inputs for testing and learning.
+//
 // The aim of this project is to learn CUDA programming and understand inner workings of neural networks.
 // In keep with the project's goals, the code is kept simple and does not include optimization features 
 // like tiling, shared memory, or memory coalescing etc.

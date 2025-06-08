@@ -22,9 +22,6 @@ The core of this project is the convForwardKernel kernel written in CUDA C++, wh
 
 `KH` and `KW` - kernel height and width
 
-## 🎯 Motivation to create
-My goal is to write a *complete* convolutional neural network from scratch without using any of the standard CUDA libraries like cuBLAS or cuDNN etc. This exercise is for learning low-level CUDA programming and to really understand how CNNs work under the hood. The final CNN will be used to classify MNIST digits.
-
 ## 🛠️ Getting Started
 
 ### Compilation
