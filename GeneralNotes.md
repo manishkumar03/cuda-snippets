@@ -76,6 +76,8 @@ Final Unflattened Output:
 (n, c_out, h_out, w_out) = (1, 6, 18, 0)
 ```
 
+## Why use 1D indexing instead of 2D or 3D
+While CUDA provides native support for 2D and 3D grids and threadblocks, it often makes more sense to use 1D indexing due to its flexibility. With 1D indxing we can treat real-world data of any arbitrary dimensions as a flat array. This approach decouples the kernel logic from the specific dimensions of the data, thus making it more reusable. This also gives us complete control over how we map the linear thread index to multiple dimensions which can potentially allow better memory access patterns.
 
 
 

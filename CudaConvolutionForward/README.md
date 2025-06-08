@@ -1,6 +1,6 @@
 # Simple Convolutional Forward Pass in CUDA C++
 
-This repository contains a basic implementation of a convolutional neural network's forward pass in C++. It includes a naive CUDA kernel for GPU acceleration and a corresponding CPU implementation for verification and performance comparison.
+This folder contains a basic implementation of a convolutional neural network's forward pass in C++. It includes a naive CUDA kernel for GPU acceleration and a corresponding CPU implementation for verification and performance comparison.
 
 
 ## 🔍 Overview
